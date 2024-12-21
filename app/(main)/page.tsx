@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { MarqueeDemo } from "../components/magic-card-provider";
+import { MarqueeDemo } from "../../components/magic-card-provider";
 import { DockDemo } from "@/components/dock-provider";
 import Footer from "@/components/footer";
 
