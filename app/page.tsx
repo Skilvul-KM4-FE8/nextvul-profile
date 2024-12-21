@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { MarqueeDemo } from "../components/magic-card-provider";
 import { DockDemo } from "@/components/dock-provider";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -32,7 +33,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Read our docs
+              Collabs with us
             </a>
           </div>
         </main>
@@ -68,6 +69,7 @@ export default function Home() {
       </div>
       <DockDemo />
       <MarqueeDemo />
+      <Footer />
     </>
   );
 }
