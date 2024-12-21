@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CalendarIcon, HomeIcon, MailIcon, PencilIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { useMotionValue } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -85,7 +86,7 @@ export function DockDemo() {
       <TooltipProvider>
         <Dock direction="middle">
           {DATA.navbar.map((item) => (
-            <DockIcon key={item.label}>
+            <DockIcon key={item.label} mouseX={useMotionValue(0)}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href={item.href} aria-label={item.label} className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "size-12 rounded-full")}>
@@ -100,7 +101,7 @@ export function DockDemo() {
           ))}
           <Separator orientation="vertical" className="h-full" />
           {Object.entries(DATA.contact.social).map(([name, social]) => (
-            <DockIcon key={name}>
+            <DockIcon key={name} mouseX={useMotionValue(0)}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href={social.url} aria-label={social.name} className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "size-12 rounded-full")}>
@@ -114,7 +115,7 @@ export function DockDemo() {
             </DockIcon>
           ))}
           <Separator orientation="vertical" className="h-full py-2" />
-          <DockIcon>
+          <DockIcon mouseX={useMotionValue(0)}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <ModeToggle />
