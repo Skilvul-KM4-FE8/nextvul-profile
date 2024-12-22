@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { CalendarIcon, HomeIcon, MailIcon, PencilIcon } from "lucide-react";
+import { CalendarIcon, Contact2Icon, HomeIcon, MailIcon, Newspaper, PencilIcon, PresentationIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useMotionValue } from "framer-motion";
@@ -46,7 +46,8 @@ const Icons = {
 const DATA = {
   navbar: [
     { href: "#", icon: HomeIcon, label: "Home" },
-    { href: "#", icon: PencilIcon, label: "Blog" },
+    { href: "#", icon: Newspaper, label: "Blog" },
+    { href: "#", icon: PresentationIcon, label: "Project" },
   ],
   contact: {
     social: {
@@ -60,14 +61,9 @@ const DATA = {
         url: "#",
         icon: Icons.linkedin,
       },
-      X: {
-        name: "X",
-        url: "#",
-        icon: Icons.x,
-      },
-      email: {
+      Email: {
         name: "Send Email",
-        url: "#",
+        url: "https://mail.google.com/mail/?view=cm&fs=1&to=nextvulservice@gmail.com&su=COLLABORATION PROJECT&body=Dear Nextvul,",
         icon: Icons.email,
       },
     },
@@ -78,8 +74,7 @@ export function DockDemo() {
   const mouseX = useMotionValue(0); // Define a single motion value for all DockIcon components
 
   return (
-    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-      <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">Dock</span>
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center">
       <TooltipProvider>
         <Dock direction="middle">
           {DATA.navbar.map((item) => (
