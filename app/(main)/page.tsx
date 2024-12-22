@@ -35,30 +35,32 @@ export default function Home() {
 
             <p className="text-center sm:text-left">Konsultan IT Terbaik di Indonesia, Berikan Solusi Terdepan untuk Bisnis Anda</p>
             <p className="text-center sm:text-left">Nextvul tidak hanya menawarkan solusi teknologi terdepan, namun juga kemitraan yang didasarkan pemahaman mendalam mengenai kebutuhan unik industri bisnis Anda.</p>
-            <Card>
-              <CardHeader>
-                <CardTitle>Tim Ahli Berpengalaman</CardTitle>
-                <CardDescription>Tim ahli IT yang berpengalaman yang siap membantu menemukan solusi IT yang tepat.</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Teknologi Terdepan</CardTitle>
-                <CardDescription>Memberikan akses ke teknologi terbaru dan inovatif untuk membantu Anda jadi terdepan.</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Komitmen Terhadap Kualitas</CardTitle>
-                <CardDescription>Pengalaman bertahun-tahun memberikan layanan terbaik dengan standar kualitas tinggi.</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Fokus pada Pelanggan</CardTitle>
-                <CardDescription>Memprioritaskan kebutuhan Anda untuk berikan solusi yang sesuai dengan bisnis Anda.</CardDescription>
-              </CardHeader>
-            </Card>
+            <div className="space-y-4 ">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Tim Ahli Berpengalaman</CardTitle>
+                  <CardDescription>Tim ahli IT yang berpengalaman yang siap membantu menemukan solusi IT yang tepat.</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Teknologi Terdepan</CardTitle>
+                  <CardDescription>Memberikan akses ke teknologi terbaru dan inovatif untuk membantu Anda jadi terdepan.</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Komitmen Terhadap Kualitas</CardTitle>
+                  <CardDescription>Pengalaman bertahun-tahun memberikan layanan terbaik dengan standar kualitas tinggi.</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Fokus pada Pelanggan</CardTitle>
+                  <CardDescription>Memprioritaskan kebutuhan Anda untuk berikan solusi yang sesuai dengan bisnis Anda.</CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
           </main>
         </div>
 
