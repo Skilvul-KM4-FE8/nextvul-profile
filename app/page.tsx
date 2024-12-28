@@ -1,5 +1,5 @@
 "use client";
-import { MarqueeDemo } from "../../components/magic-card-provider";
+import { MarqueeDemo } from "@/components/magic-card-provider";
 import { DockDemo } from "@/components/dock-provider";
 import Footer from "@/components/footer";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
