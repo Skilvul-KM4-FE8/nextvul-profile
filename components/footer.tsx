@@ -1,7 +1,11 @@
+import FooterCopyright from "./molecules/FooterCopyright";
+import FooterLocation from "./molecules/FooterLocation";
+
 export default function Footer() {
   return (
-    <div>
-      <footer className="flex flex-wrap items-center justify-center m-5 font-[family-name:var(--font-geist-sans)]">Powered by Nextvul.</footer>
-    </div>
+    <footer style={{backgroundImage: "url('/Footer.svg')"}}>
+      <FooterLocation />
+      <FooterCopyright />
+    </footer>
   );
 }
