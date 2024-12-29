@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MarqueeDemo } from "../../components/magic-card-provider";
 import { DockDemo } from "@/components/dock-provider";
 import Footer from "@/components/footer";
+import FeedbackSection from "@/components/feedback-section";
 
 export default function Home() {
   return (
@@ -69,6 +70,7 @@ export default function Home() {
       </div>
       <DockDemo />
       <MarqueeDemo />
+      <FeedbackSection />
       <Footer />
     </>
   );
