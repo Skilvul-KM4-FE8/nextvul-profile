@@ -4,6 +4,7 @@ import { MarqueeDemo } from "../../components/magic-card-provider";
 import { DockDemo } from "@/components/dock-provider";
 import Footer from "@/components/footer";
 import FeedbackSection from "@/components/feedback-section";
+import QuotesSection from "@/components/quotes-section";
 
 export default function Home() {
   return (
@@ -70,6 +71,7 @@ export default function Home() {
       </div>
       <DockDemo />
       <MarqueeDemo />
+      <QuotesSection />
       <FeedbackSection />
       <Footer />
     </>
