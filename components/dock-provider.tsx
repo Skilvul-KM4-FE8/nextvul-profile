@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { CalendarIcon, HomeIcon, MailIcon, PencilIcon } from "lucide-react";
+import { CalendarIcon, Contact2Icon, HomeIcon, LayoutDashboard, MailIcon, Newspaper, PencilIcon, PresentationIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useMotionValue } from "framer-motion";
@@ -17,15 +17,7 @@ export type IconProps = React.HTMLAttributes<SVGElement>;
 const Icons = {
   calendar: (props: IconProps) => <CalendarIcon {...props} />,
   email: (props: IconProps) => <MailIcon {...props} />,
-  github: (props: IconProps) => (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <title>GitHub</title>
-      <path
-        fill="currentColor"
-        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.775.418-1.305.76-1.605-2.665-.305-5.466-1.335-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.983-.399 3.005-.404 1.022.005 2.048.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.241 2.873.118 3.176.77.84 1.234 1.91 1.234 3.22 0 4.61-2.803 5.62-5.475 5.92.43.37.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-      />
-    </svg>
-  ),
+
   linkedin: (props: IconProps) => (
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
       <title>LinkedIn</title>
@@ -46,29 +38,27 @@ const Icons = {
 const DATA = {
   navbar: [
     { href: "#", icon: HomeIcon, label: "Home" },
-    { href: "#", icon: PencilIcon, label: "Blog" },
+    { href: "#", icon: Newspaper, label: "Blog" },
+    { href: "#", icon: PresentationIcon, label: "Project" },
+    { href: "#", icon: PencilIcon, label: "About" },
+    { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   ],
   contact: {
     social: {
-      GitHub: {
-        name: "GitHub",
-        url: "#",
-        icon: Icons.github,
-      },
       LinkedIn: {
         name: "LinkedIn",
         url: "#",
         icon: Icons.linkedin,
       },
-      X: {
-        name: "X",
-        url: "#",
-        icon: Icons.x,
-      },
-      email: {
+      Email: {
         name: "Send Email",
-        url: "#",
+        url: "https://mail.google.com/mail/?view=cm&fs=1&to=nextvulservice@gmail.com&su=COLLABORATION PROJECT&body=Dear Nextvul,",
         icon: Icons.email,
+      },
+      Whatsapp: {
+        name: "Whatsapp",
+        url: "https://wa.me/6281293666666",
+        icon: Contact2Icon,
       },
     },
   },
@@ -78,8 +68,7 @@ export function DockDemo() {
   const mouseX = useMotionValue(0); // Define a single motion value for all DockIcon components
 
   return (
-    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-      <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">Dock</span>
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center">
       <TooltipProvider>
         <Dock direction="middle">
           {DATA.navbar.map((item) => (
