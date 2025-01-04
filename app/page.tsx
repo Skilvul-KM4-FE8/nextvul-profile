@@ -2,10 +2,10 @@
 import { MarqueeDemo } from "@/components/magic-card-provider";
 import { DockDemo } from "@/components/dock-provider";
 import Footer from "@/components/footer";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 
-import { CircleLoader, PuffLoader, RingLoader } from "react-spinners";
+import { PuffLoader } from "react-spinners";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
