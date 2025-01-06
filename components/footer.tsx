@@ -4,7 +4,7 @@ import QuotesSection from "./quotes-section";
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundImage: "url('/Footer.svg')" }}>
+    <footer className="bg-cover" style={{ backgroundImage: "url('/Footer.svg')" }}>
       <QuotesSection />
       <FooterLocation />
       <FooterCopyright />
