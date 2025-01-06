@@ -80,3 +80,12 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer Color {
+  .primary {
+    @apply bg-card text-card-foreground;
+  }
+  .secondary {
+    @apply bg-popover text-popover-foreground;
+  }
+}
