@@ -28,9 +28,6 @@ const TechStackIcon = ({ name }: { name: string }) => {
 export default function TechStackMarquee() {
   return (
     <div className="mb-10 flex h-[200px] w-full flex-col items-center justify-center overflow-hidden bg-slate-700 dark:bg-slate-900">
-      <div className="text-white text-center font-bold text-2xl p-3 font-[family-name:var(--font-geist-mono)] uppercase">
-        <p>Integrates seamlessly with</p>
-      </div>
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((tech) => (
           <TechStackIcon key={tech} name={tech} />
