@@ -1,5 +1,5 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { icons, UserRoundCheck } from "lucide-react";
+import { icons } from "lucide-react";
 export default function Content() {
   const data = [
     {
@@ -36,7 +36,7 @@ export default function Content() {
         </div>
         <div className=" grid grid-cols-2 gap-2">
           {data.map((item, index) => (
-            <Card className="p-4" key={index}>
+            <Card className="p-4 hover:border-slate-200" key={index}>
               <item.icons size={30} className="my-3" />
               <CardTitle className="mb-3 underline">{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>
