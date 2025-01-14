@@ -57,7 +57,7 @@ const DATA = {
       },
       Whatsapp: {
         name: "Whatsapp",
-        url: "https://wa.me/6281293666666",
+        url: "https://wa.me/081927453030",
         icon: Contact2Icon,
       },
     },

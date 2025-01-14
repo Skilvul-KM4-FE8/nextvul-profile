@@ -29,7 +29,7 @@ const FooterLocation = () => {
   ];
 
   return (
-    <div className="font-[family-name:var(--font-geist-mono)] w-10/12 md:max-w-5xl px-4 mx-auto flex gap-7 items-start flex-col md:flex-row justify-start md:justify-center py-10 border-t border-t-slate-500">
+    <div className="font-[family-name:var(--font-geist-sans)] w-10/12 md:max-w-5xl px-4 mx-auto flex gap-7 items-start flex-col md:flex-row justify-start md:justify-center py-10 border-t border-t-slate-500">
       {footerLocations.map((item, index) => (
         <>
           <div key={index} className="flex flex-wrap w-4/5 flex-col gap-2 md:gap-5 md:mb-5">
