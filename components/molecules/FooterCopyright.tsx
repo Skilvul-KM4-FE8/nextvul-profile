@@ -16,38 +16,36 @@ const FooterCopyright = () => {
   ];
 
   return (
-    <div className=" font-[family-name:var(--font-geist-mono)] w-10/12 md:max-w-5xl border-t border-t-slate-500 mx-auto py-3">
-      <div className="flex gap-5 flex-col md:flex-row items-center justify-between mx-auto py-5">
-        <Image src={"nextvulWhite.svg"} width={80} height={80} alt="Nextvul" />
-        <div className="flex gap-7">
-          <Link href="/">
-            <FaInstagram className="text-2xl md:text-3xl text-slate-300 cursor-pointer" />
+    <div className='w-10/12 md:max-w-5xl border-t border-t-slate-500 mx-auto py-3'>
+      <div className='flex gap-5 flex-col md:flex-row items-center justify-between mx-auto py-5'>
+        <Image src={"nextvulWhite.svg"} width={80} height={80} alt='Nextvul' />
+        <div className='flex gap-7'>
+          <Link href='/'>
+            <FaInstagram className='text-2xl md:text-3xl text-slate-300 cursor-pointer' />
           </Link>
-          <Link href="/">
-            <FaLinkedin className="text-2xl md:text-3xl text-slate-300 cursor-pointer" />
+          <Link href='/'>
+            <FaLinkedin className='text-2xl md:text-3xl text-slate-300 cursor-pointer' />
           </Link>
-          <Link href="/">
-            <FaYoutube className="text-2xl md:text-3xl text-slate-300 cursor-pointer" />
+          <Link href='/'>
+            <FaYoutube className='text-2xl md:text-3xl text-slate-300 cursor-pointer' />
           </Link>
         </div>
       </div>
 
-      <div className="flex items-center justify-center md:justify-end flex-wrap gap-5 mt-2 md:mt-0 mx-auto">
+      <div className='flex items-center justify-center md:justify-end flex-wrap gap-5 mt-2 md:mt-0 mx-auto'>
         {footerLinks.map((item, index) => (
           <>
-            <Link key={index} href={item.link} className="text-base">
-              {item.name}
-            </Link>
-            {index !== footerLinks.length - 1 && <div className="md:border-t border-t-slate-400 md:w-5"></div>}
+            <Link key={index} href={item.link} className='text-base'>{item.name}</Link>
+            {index !== footerLinks.length - 1 && <div className='md:border-t border-t-slate-400 md:w-5'></div>}
           </>
         ))}
       </div>
 
-      <div className="flex items-center justify-center md:justify-end mt-5">
-        <p className="text-sm font-thin text-slate-300">© 2025 Nextvul. All rights reserved.</p>
+      <div className='flex items-center justify-center md:justify-end mt-5'>
+        <p className='text-sm font-thin text-slate-300'>© 2025 Nextvul. All rights reserved.</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FooterCopyright;
+export default FooterCopyright
