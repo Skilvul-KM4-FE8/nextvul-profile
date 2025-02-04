@@ -16,12 +16,14 @@ const FooterCopyright = () => {
   ];
 
   return (
-    <div className='w-10/12 md:max-w-5xl border-t border-t-slate-500 mx-auto py-3'>
-      <div className='flex gap-5 flex-col md:flex-row items-center justify-between mx-auto py-5'>
-        <Image src={"nextvulWhite.svg"} width={80} height={80} alt='Nextvul' />
-        <div className='flex gap-7'>
-          <Link href='/'>
-            <FaInstagram className='text-2xl md:text-3xl text-slate-300 cursor-pointer' />
+
+    <div className="font-[family-name:var(--font-geist-sans)] w-10/12 md:max-w-5xl border-t border-t-slate-500 mx-auto py-3">
+
+      <div className="flex gap-5 flex-col md:flex-row items-center justify-between mx-auto py-5">
+        <Image src={"nextvulWhite.svg"} width={80} height={80} alt="Nextvul" />
+        <div className="flex gap-7">
+          <Link href="/">
+            <FaInstagram className="text-2xl md:text-3xl text-slate-300 cursor-pointer" />
           </Link>
           <Link href='/'>
             <FaLinkedin className='text-2xl md:text-3xl text-slate-300 cursor-pointer' />
