@@ -1,0 +1,79 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  clerkUserId  String    @unique
+  email        String    @unique
+  name         String?
+  role         Role      @default(USER)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  // Relasi dengan produk yang dijual (software)
+  products     Product[]
+  // Relasi dengan pesanan joki koding
+  orders       Order[]
+  @@map("users")
+}
+
+enum Role {
+  USER
+  ADMIN
+  SELLER // Tambahkan role SELLER
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  // Relasi dengan user yang menjual produk
+  sellerId    String
+  seller      User      @relation(fields: [sellerId], references: [id])
+  // Relasi dengan kategori produk
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  @@map("products")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  products    Product[]
+  @@map("categories")
+}
+
+model Order {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  serviceType ServiceType
+  description String?
+  price       Float
+  status      OrderStatus @default(PENDING)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  @@map("orders")
+}
+
+enum ServiceType {
+  SOFTWARE
+  CODING_SERVICE
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
