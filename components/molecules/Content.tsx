@@ -56,7 +56,7 @@ export default function Content() {
                 <CardTitle className="mb-3 underline text-lg sm:text-xl md:text-2xl">{item.title}</CardTitle>
 
                 {/* Deskripsi Kartu */}
-                <CardDescription className="text-base sm:text-lg md:text-xl">{item.description}</CardDescription>
+                <CardDescription className="text-base sm:text-l md:text-sm">{item.description}</CardDescription>
               </Card>
             ))}
           </div>

@@ -6,7 +6,7 @@ const isPublicRoute = createRouteMatcher(["/", "/sign-in", "/sign-up"]);
 export default clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {
     // Rute selain yang diizinkan harus menggunakan autentikasi
-    await auth.protect();
+    // await auth.protect();
   }
 });
 
