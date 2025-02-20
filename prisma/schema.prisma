@@ -8,27 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id           String    @id @default(cuid())
-  clerkUserId  String    @unique
-  email        String    @unique
-  name         String?
-  role         Role      @default(USER)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  // Relasi dengan produk yang dijual (software)
-  products     Product[]
-  // Relasi dengan pesanan joki koding
-  orders       Order[]
-  @@map("users")
-}
-
-enum Role {
-  USER
-  ADMIN
-  SELLER // Tambahkan role SELLER
-}
-
 model Product {
   id          String    @id @default(cuid())
   name        String
@@ -36,13 +15,11 @@ model Product {
   price       Float
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  // Relasi dengan user yang menjual produk
-  sellerId    String
-  seller      User      @relation(fields: [sellerId], references: [id])
-  // Relasi dengan kategori produk
+  sellerId    String    // ID user dari Clerk
   categoryId  String?
   category    Category? @relation(fields: [categoryId], references: [id])
   @@map("products")
+  OrderItem OrderItem[]
 }
 
 model Category {
@@ -54,17 +31,29 @@ model Category {
 }
 
 model Order {
-  id          String    @id @default(cuid())
-  userId      String
-  user        User      @relation(fields: [userId], references: [id])
+  id          String       @id @default(cuid())
+  userId      String       // ID user dari Clerk
   serviceType ServiceType
   description String?
   price       Float
-  status      OrderStatus @default(PENDING)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  status      OrderStatus  @default(PENDING)
+  orderItems  OrderItem[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   @@map("orders")
 }
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1) // Jumlah produk dalam order
+  @@map("order_items")
+}
+
+
 
 enum ServiceType {
   SOFTWARE
