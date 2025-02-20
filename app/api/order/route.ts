@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextApiResponse } from "next";
 import { NextRequest } from "next/server";
+import { currentUser } from "@clerk/nextjs/server";
 
 export async function GET(res: NextApiResponse) {
   try {
@@ -26,6 +27,13 @@ export async function GET(res: NextApiResponse) {
 
 export async function POST(res: NextApiResponse, req: NextRequest) {
   const { userId, serviceType, description, price, status } = await req.json();
+
+  const userInfo = await currentUser();
+  if (!userInfo) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  console.log(userInfo.id);
+
   try {
     const order = await prisma.order.create({
       data: {
