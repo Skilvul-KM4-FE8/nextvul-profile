@@ -25,29 +25,37 @@ export async function GET(res: NextApiResponse) {
 //  @@map("orders")
 // }
 
-export async function POST(res: NextApiResponse, req: NextRequest) {
-  const { userId, serviceType, description, price, status } = await req.json();
+//post
 
-  const userInfo = await currentUser();
-  if (!userInfo) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-  console.log(userInfo.id);
-
+export async function POST(res: NextApiResponse) {
   try {
     const order = await prisma.order.create({
       data: {
-        userId,
-        serviceType,
-        description,
-        price,
-        status,
+        userId: "cm7cve1l50001jf2ctd16bddb",
+        serviceType: "CODING_SERVICE",
+        description: "description test",
+        price: 120000,
+        orderItems: {
+          create: [
+            {
+              productId: "cm7cve1l50001jf2ctd16bdbm",
+              quantity: 2,
+            },
+            {
+              productId: "cm7cvf0p30003jf2cvyslbj4s",
+              quantity: 4,
+            },
+          ],
+        },
+      },
+      include: {
+        orderItems: true,
       },
     });
 
-    return res.json({ status: "success", order });
+    return new Response(JSON.stringify({ status: "success", order }), { status: 200 });
   } catch (error) {
-    console.error("Error creating category:", error);
-    return new Response("Something error", { status: 501 });
+    console.error("Error creating order:", error);
+    return res.status(501).json({ error: "Something error" });
   }
 }
