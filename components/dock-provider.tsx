@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { CalendarIcon, Contact2Icon, HomeIcon, LayoutDashboard, MailIcon, Newspaper, PencilIcon, PresentationIcon } from "lucide-react";
+import { CalendarIcon, Contact2Icon, HomeIcon, LayoutDashboard, MailIcon, Newspaper, PencilIcon, PresentationIcon, Store } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useMotionValue } from "framer-motion";
@@ -37,7 +37,8 @@ const Icons = {
 
 const DATA = {
   navbar: [
-    { href: "#", icon: HomeIcon, label: "Home" },
+    { href: "/", icon: HomeIcon, label: "Home" },
+    { href: "/marketplace", icon: Store, label: "Marketplace" },
     { href: "#", icon: Newspaper, label: "Blog" },
     { href: "#", icon: PresentationIcon, label: "Project" },
     { href: "#", icon: PencilIcon, label: "About" },

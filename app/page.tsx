@@ -5,18 +5,22 @@ import Footer from "@/components/footer";
 import Banner1 from "@/components/molecules/banner";
 import Content1 from "@/components/molecules/Content";
 import TechStack1 from "@/components/molecules/techStack";
+import { Suspense } from "react";
+import Loading from "@/components/loading";
 
 export default function Home() {
   // `setLoading` removed as it is unused
 
   return (
     <>
-      <DockDemo />
-      <Banner1 />
-      <TechStack1 />
-      <Content1 />
-      <MarqueeDemo />
-      <Footer />
+      <Suspense fallback={<Loading />}>
+        <DockDemo />
+        <Banner1 />
+        <TechStack1 />
+        <Content1 />
+        <MarqueeDemo />
+        <Footer />
+      </Suspense>
     </>
   );
 }
