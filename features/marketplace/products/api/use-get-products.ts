@@ -28,7 +28,7 @@ export const useGetProducts = () => {
   const queryClient = useQuery<ResponseType[]>({
     queryKey: ["products"],
     queryFn: async () => {
-      const response = await axios.get("api/product");
+      const response = await axios.get("/api/product");
 
       if (!response) {
         throw new Error("An error occurred while fetching the data");
