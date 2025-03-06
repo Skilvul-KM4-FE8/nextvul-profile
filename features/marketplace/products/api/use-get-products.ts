@@ -18,10 +18,11 @@ type ResponseType = {
   name: string;
   description: string;
   price: number;
-  createdAt: string;
-  updatedAt: string;
+  imageUrl: string;
   sellerId: string;
   categoryId: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export const useGetProducts = () => {
