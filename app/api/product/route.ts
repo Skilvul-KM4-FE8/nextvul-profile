@@ -29,6 +29,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         name: "name",
         description: "description",
         price: 120000,
+        imageUrl: "https://bs-uploads.toptal.io/blackfish-uploads/uploaded_file/file/191412/image-1582297511813-b188785eb990868e1e672230e8bbe740.png",
         sellerId: "cm6tkxjy500002hjk73dv3pm1",
         categoryId: "1",
       },
