@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
 
 export default function DropdownCart() {
-  const { cart, clearCart } = useCartStore();
+  const { cart, clearCart, removeFromCart } = useCartStore();
 
   return (
     <>
@@ -22,6 +22,9 @@ export default function DropdownCart() {
                 <div key={item.id} className=" ">
                   <DropdownMenuItem>
                     {item.name} <DropdownMenuShortcut>{item.quantity}</DropdownMenuShortcut>
+                    <Button variant="destructive" onClick={() => removeFromCart(item.id)}>
+                      X
+                    </Button>
                   </DropdownMenuItem>
                 </div>
               ))

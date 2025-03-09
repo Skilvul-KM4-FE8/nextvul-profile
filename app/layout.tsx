@@ -7,6 +7,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 // import { ClerkProvider, SignedIn, UserButton } from "@clerk/nextjs";
 
+import { Toaster } from "@/components/ui/sonner";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const geistSans = localFont({
@@ -37,6 +39,7 @@ export default function RootLayout({
           </SignedIn> */}
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             {children}
+            <Toaster />
             <Analytics />
           </ThemeProvider>
         </body>
