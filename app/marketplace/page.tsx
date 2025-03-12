@@ -21,12 +21,7 @@ export default function Marketplace() {
     // use toasts
   };
 
-  const OpenDialog = () => {
-    // open dialog
-  }
-  
 
-  // use toasts
 
   return (
     <>
