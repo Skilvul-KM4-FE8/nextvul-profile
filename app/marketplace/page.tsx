@@ -27,7 +27,11 @@ export default function Marketplace() {
     // use toasts
   };
 
+<<<<<<< HEAD
   const { openModal } = useModalStore(); // store
+=======
+
+>>>>>>> 058c356c5f51f4be609de8becd6d3ea47a78a438
 
   return (
     <>
