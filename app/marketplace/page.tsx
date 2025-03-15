@@ -9,6 +9,12 @@ import { useCartStore } from "@/store/cart-store"; // Import store
 import DropdownCart from "@/components/molecules/dropdownCart";
 import Link from "next/link";
 import { toast } from "sonner";
+import useModalStore from "@/store/useModalStore";
+import { QueryClientProvider } from "@tanstack/react-query";
+
+import { queryClient } from "@/lib/query-client";
+import CreateProductModal from "@/features/marketplace/products/components/CreateProductModal";
+import React from "react";
 
 export default function Marketplace() {
   const productsQuery = useGetProducts();
@@ -21,19 +27,19 @@ export default function Marketplace() {
     // use toasts
   };
 
-  const OpenDialog = () => {
-    // open dialog
-  }
-  
-
-  // use toasts
+  const { openModal } = useModalStore(); // store
 
   return (
     <>
       <DockDemo />
 
       <div className="flex flex-col items-center justify-center min-h-screen mt-20 py-10 font-[family-name:var(--font-geist-sans)] p-4">
-        <Button onClick={() => toast.success("Hello")}>Add Product</Button>
+        <QueryClientProvider client={queryClient}>
+          <div className="p-6">
+            <Button onClick={openModal}>Create Product</Button>
+            <CreateProductModal />
+          </div>
+        </QueryClientProvider>
         <div className="flex w-full px-5 max-w-6xl mt-10">
           <div className="justify-items-start">
             <h1 className="text-2xl font-bold">Marketplace</h1>
