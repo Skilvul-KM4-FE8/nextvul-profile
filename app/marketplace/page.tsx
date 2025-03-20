@@ -27,11 +27,7 @@ export default function Marketplace() {
     // use toasts
   };
 
-<<<<<<< HEAD
   const { openModal } = useModalStore(); // store
-=======
-
->>>>>>> 058c356c5f51f4be609de8becd6d3ea47a78a438
 
   return (
     <>
@@ -67,7 +63,8 @@ export default function Marketplace() {
                 </div>
               </Link>
               <p>{product.description}</p>
-              <p>Rp {new Intl.NumberFormat("id-ID").format(product.price)}</p>
+              <p>Rp {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(product.price)}</p>
+
               <Button className="mt-2 w-full" onClick={() => handleAddToCart(product, index)}>
                 Add to Cart
               </Button>

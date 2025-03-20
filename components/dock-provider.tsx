@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ModeToggle from "@/components/mode-toggle";
 import { Dock, DockIcon } from "@/components/ui/dock";
+import { UserButton } from "@clerk/nextjs";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -109,6 +110,17 @@ export function DockDemo() {
               </TooltipTrigger>
               <TooltipContent>
                 <p>Theme</p>
+              </TooltipContent>
+            </Tooltip>
+          </DockIcon>
+          <Separator orientation="vertical" className="h-full py-2" />
+          <DockIcon mouseX={mouseX}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <UserButton />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Account</p>
               </TooltipContent>
             </Tooltip>
           </DockIcon>

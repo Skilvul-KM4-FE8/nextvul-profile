@@ -1,11 +1,10 @@
 "use client";
 
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
-// import { ClerkProvider, SignedIn, UserButton } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn, UserButton } from "@clerk/nextjs";
 
 import { Toaster } from "@/components/ui/sonner";
 
@@ -30,21 +29,19 @@ export default function RootLayout({
   const queryClient = new QueryClient();
 
   return (
-    // <ClerkProvider>
-    <QueryClientProvider client={queryClient}>
-      <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <body>
-          {/* <SignedIn>
-            <UserButton />
-          </SignedIn> */}
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            {children}
-            <Toaster />
-            <Analytics />
-          </ThemeProvider>
-        </body>
-      </html>
-    </QueryClientProvider>
-    // </ClerkProvider>
+    <ClerkProvider>
+      <QueryClientProvider client={queryClient}>
+        <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <body>
+            <SignedIn></SignedIn>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+              {children}
+              <Toaster />
+              <Analytics />
+            </ThemeProvider>
+          </body>
+        </html>
+      </QueryClientProvider>
+    </ClerkProvider>
   );
 }
