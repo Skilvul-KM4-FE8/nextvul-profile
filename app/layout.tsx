@@ -9,6 +9,8 @@ import { ClerkProvider, SignedIn, UserButton } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Suspense } from "react";
+import Loading from "@/components/loading";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,7 +37,10 @@ export default function RootLayout({
           <body>
             <SignedIn></SignedIn>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-              {children}
+              <main>
+                <Suspense fallback={<Loading />}>{children}</Suspense>
+              </main>
+
               <Toaster />
               <Analytics />
             </ThemeProvider>

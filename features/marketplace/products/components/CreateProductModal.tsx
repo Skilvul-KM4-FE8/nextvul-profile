@@ -252,14 +252,15 @@ export default function CreateProductModal() {
                 </FormItem>
               )}
             />
+            <div className="mt-4 space-x-4">
+              <Button className="w-full " type="submit">
+                Submit
+              </Button>
 
-            <Button className="w-full m-4 pt-2" type="submit">
-              Submit
-            </Button>
-
-            <Button type="button" onClick={closeModal} variant="outline" className="rounded-md w-full m-4 pt-1">
-              Cancel
-            </Button>
+              <Button type="button" onClick={closeModal} variant="outline" className="rounded-md w-full m-4 pt-1">
+                Cancel
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
