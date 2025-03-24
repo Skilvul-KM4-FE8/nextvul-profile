@@ -1,45 +1,46 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+"use client";
 
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { FaProductHunt } from "react-icons/fa6";
+import { ChevronUp, HomeIcon, PackageSearch, Settings, ShoppingCart, SquareChartGantt, User2 } from "lucide-react";
+
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarTrigger } from "@/components/ui/sidebar";
+
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import Link from "next/link";
 
 // Menu items.
 const items = [
+  { title: "Home", url: "/", icon: HomeIcon },
   {
-    title: "Product",
-    url: "/dashboard/product",
-    icon: FaProductHunt,
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: SquareChartGantt,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "Products",
+    url: "/dashboard/products",
+    icon: PackageSearch,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Orders",
+    url: "/dashboard/orders",
+    icon: ShoppingCart,
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/dashboard/settings",
     icon: Settings,
   },
 ];
 
 export function AppSidebar() {
   return (
-    <Sidebar>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+    <>
+      <Sidebar variant="floating" collapsible="icon">
+        <SidebarHeader>
+          <SidebarGroupLabel>Nextvul</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
+              <SidebarTrigger />
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
@@ -52,8 +53,30 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
+        </SidebarHeader>
+
+        <SidebarFooter>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton>
+                <User2 /> Username
+                <ChevronUp className="ml-auto" />
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
+              <DropdownMenuItem>
+                <span>Account</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>Billing</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>Sign out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarFooter>
+      </Sidebar>
+    </>
   );
 }

@@ -31,22 +31,22 @@ export default function RootLayout({
   const queryClient = new QueryClient();
 
   return (
-    <ClerkProvider>
-      <QueryClientProvider client={queryClient}>
-        <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <body>
-            <SignedIn></SignedIn>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-              <main>
-                <Suspense fallback={<Loading />}>{children}</Suspense>
-              </main>
+    <Suspense fallback={<Loading />}>
+      <ClerkProvider>
+        <QueryClientProvider client={queryClient}>
+          <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+            <body>
+              <SignedIn></SignedIn>
+              <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                <main>{children}</main>
 
-              <Toaster />
-              <Analytics />
-            </ThemeProvider>
-          </body>
-        </html>
-      </QueryClientProvider>
-    </ClerkProvider>
+                <Toaster />
+                <Analytics />
+              </ThemeProvider>
+            </body>
+          </html>
+        </QueryClientProvider>
+      </ClerkProvider>
+    </Suspense>
   );
 }
