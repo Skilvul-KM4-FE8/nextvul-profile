@@ -1,12 +1,24 @@
-import { NextApiResponse } from "next";
-import { prisma } from "@/lib/prisma"; // Sesuaikan dengan konfigurasi Prisma-mu
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-export async function GET(res: NextApiResponse) {
+// API Route: /api/product/[id]
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+  const { id } = params;
+
   try {
-    const product = await prisma.product.findMany();
-    return new Response(JSON.stringify(product));
+    const products = await prisma.product.findMany({
+      where: {
+        sellerId: id, // ✅ Sekarang benar!
+      },
+    });
+
+    if (!products || products.length === 0) {
+      return NextResponse.json({ error: "Products not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(products);
   } catch (error) {
-    console.error("Error fetching users:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    console.error("Error fetching products:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
