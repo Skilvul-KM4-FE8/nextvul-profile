@@ -5,24 +5,30 @@ type ProductCreateInput = {
   name: string;
   description: string;
   price: number;
-  sellerId: string;
   categoryId: string;
-};
-
-type ResponseType = {
-  name: string;
-  description: string;
-  price: number;
   sellerId: string;
-  categoryId: string;
+  image: File;
 };
 
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async (json: ProductCreateInput): Promise<ResponseType> => {
-      const response = await axios.post("/api/product", json);
+    mutationFn: async (data: ProductCreateInput) => {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("description", data.description);
+      formData.append("price", data.price.toString());
+      formData.append("categoryId", data.categoryId);
+      formData.append("sellerId", data.sellerId);
+      formData.append("image", data.image);
+
+      const response = await axios.post("/api/product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       return response.data;
     },
     onSuccess: () => {
@@ -32,5 +38,6 @@ export const useCreateProduct = () => {
       console.error("Error creating product:", error);
     },
   });
+
   return mutation;
 };
