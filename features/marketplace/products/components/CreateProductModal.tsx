@@ -10,6 +10,22 @@ import useModalStore from "@/store/useModalStore";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PriceInput } from "@/components/molecules/price-input";
 import { useCreateProduct } from "@/features/marketplace/products/api/use-create-product";
+import ImageUploader from "@/components/molecules/imageUploader";
+
+// model Product {
+//   id          String    @id @default(cuid())
+//   name        String
+//   description String?
+//   price       Float
+//   imageUrl    String?
+//   sellerId    String    // ID user dari Clerk
+//   categoryId  String?
+//   category    Category? @relation(fields: [categoryId], references: [id])
+//   createdAt   DateTime  @default(now())
+//   updatedAt   DateTime  @updatedAt
+//   @@map("products")
+//   OrderItem OrderItem[]
+// }
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -18,7 +34,14 @@ const formSchema = z.object({
   price: z.number().min(0, "Price must be a positive number"),
   categoryId: z.string().min(1, "Category is required"),
   sellerId: z.string().min(1, "Seller ID is required"),
-  image: z.array(z.instanceof(File)).min(1, "Image is required").max(1, "Only one image is allowed"),
+  Image: z
+    .any()
+    .refine((file) => file?.length === 1, "File harus diunggah")
+    .refine(
+      (file) => file?.[0]?.size <= 2 * 1024 * 1024, // Maksimal 2MB
+      "Ukuran file maksimal 2MB"
+    )
+    .refine((file) => ["image/jpeg", "image/png"].includes(file?.[0]?.type), "Format file harus JPG atau PNG"),
 });
 
 export default function CreateProductModal() {
@@ -26,7 +49,7 @@ export default function CreateProductModal() {
   const { user } = useUser(); // Ambil user dari Clerk
   const sellerId = user?.id || ""; // Ambil ID user Clerk sebagai sellerId
 
-  // Panggil useCreateProduct
+  const createProductMutation = useCreateProduct(); // Call the hook to get the mutation object
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,20 +62,26 @@ export default function CreateProductModal() {
     },
   });
 
+  const isLoading = createProductMutation.status === "pending";
+
+  if (isLoading) {
+    // Handle loading state
+  }
+
   function onSubmit(data: z.infer<typeof formSchema>) {
-    useCreateProduct({
+    createProductMutation({
       name: data.name,
       description: data.description,
       price: data.price,
       categoryId: data.categoryId,
       sellerId, // Pakai sellerId dari Clerk
-      image: data.image[0], // File image
+      Image: data.ImageUrl, // File image
     })
       .then(() => {
         closeModal();
         form.reset();
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error("Error creating product:", error);
       });
   }
@@ -103,7 +132,7 @@ export default function CreateProductModal() {
                 <FormItem>
                   <FormLabel>Price</FormLabel>
                   <FormControl>
-                    <PriceInput {...field} value={field.value.toString()} />
+                    <PriceInput {...field} value={field.value} />
                   </FormControl>
                   <FormDescription>This is your product price.</FormDescription>
                   <FormMessage />
@@ -137,23 +166,11 @@ export default function CreateProductModal() {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="image"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image</FormLabel>
-                  <FormControl>
-                    <Input type="file" onChange={(e) => field.onChange(e.target.files)} ref={field.ref} />
-                  </FormControl>
-                  <FormDescription>This is your product image.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <ImageUploader control={form.control} />
+
             <div className="mt-4 space-x-4">
-              <Button className="w-full" type="submit" disabled={useCreateProduct.isLoading.toString()}>
-                {useCreateProduct.isLoading ? "Submitting..." : "Submit"}
+              <Button className="w-full" type="submit" disabled={createProductMutation.status === "pending"}>
+                {createProductMutation.status === "pending" ? "Submitting..." : "Submit"}
               </Button>
 
               <Button type="button" onClick={closeModal} variant="outline" className="rounded-md w-full m-4 pt-1">

@@ -10,7 +10,7 @@ type ProductCreateInput = {
   image: File;
 };
 
-export const useCreateProduct = () => {
+export const useCreateProduct = (p0: { name: string; description: string; price: number; categoryId: string; sellerId: string; Image: any; }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -21,7 +21,7 @@ export const useCreateProduct = () => {
       formData.append("price", data.price.toString());
       formData.append("categoryId", data.categoryId);
       formData.append("sellerId", data.sellerId);
-      formData.append("image", data.image);
+      formData.append("Image", data.image);
 
       const response = await axios.post("/api/product", formData, {
         headers: {

@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   try {
     const products = await prisma.product.findMany({
       where: {
-        sellerId: id, // ✅ Sekarang benar!
+        sellerId: id, 
       },
     });
 

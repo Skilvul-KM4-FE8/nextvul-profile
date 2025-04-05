@@ -6,7 +6,7 @@ import { CalendarIcon, Contact2Icon, HomeIcon, LayoutDashboard, MailIcon, Newspa
 
 import { cn } from "@/lib/utils";
 import { useMotionValue } from "framer-motion";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ModeToggle from "@/components/mode-toggle";
