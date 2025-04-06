@@ -7,37 +7,39 @@ type ProductCreateInput = {
   price: number;
   categoryId: string;
   sellerId: string;
-  image: File;
+  imageUrl: string;
 };
 
-export const useCreateProduct = (p0: { name: string; description: string; price: number; categoryId: string; sellerId: string; Image: any; }) => {
+type ResponseType = {
+  status: string;
+  product: {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    imageUrl: string;
+    sellerId: string;
+    categoryId: string;
+  };
+};
+
+export const useCreateProduct = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: async (data: ProductCreateInput) => {
+  return useMutation({
+    mutationFn: async (data: ProductCreateInput): Promise<ResponseType> => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("description", data.description);
       formData.append("price", data.price.toString());
       formData.append("categoryId", data.categoryId);
       formData.append("sellerId", data.sellerId);
-      formData.append("Image", data.image);
-
-      const response = await axios.post("/api/product", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
+      formData.append("imageUrl", data.imageUrl);
+      const response = await axios.post("/api/product", formData);
       return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
-    onError: (error) => {
-      console.error("Error creating product:", error);
-    },
   });
-
-  return mutation;
 };

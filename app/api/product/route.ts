@@ -6,30 +6,17 @@ const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const formData = await req.formData();
-    const name = formData.get("name") as string;
-    const description = formData.get("description") as string;
-    const price = Number(formData.get("price"));
-    const sellerId = formData.get("sellerId") as string;
-    const categoryId = formData.get("categoryId") as string;
-    const imageFile = formData.get("image") as File;
+    const payload = await req.formData();
+    console.log(payload);
 
-    if (!imageFile) {
-      return NextResponse.json({ error: "Image is required" }, { status: 400 });
-    }
-
-    // Upload ke Cloudinary dan dapatkan URL
-    const imageUrl = await uploadImageToCloudinary(imageFile);
-
-    // Simpan produk ke database Prisma
     const product = await prisma.product.create({
       data: {
-        name,
-        description,
-        price,
-        imageUrl, // Simpan URL gambar Cloudinary
-        sellerId,
-        categoryId,
+        name: payload.get("name") as string,
+        description: payload.get("description") as string,
+        price: parseFloat(payload.get("price") as string),
+        imageUrl: payload.get("imageUrl") as string, // Ambil URL gambar dari form
+        sellerId: payload.get("sellerId") as string,
+        categoryId: payload.get("categoryId") as string,
       },
     });
 

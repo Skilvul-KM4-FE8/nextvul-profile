@@ -63,7 +63,7 @@ export default function Marketplace() {
                 </div>
               </Link>
               <p>{product.description}</p>
-              <p>Rp {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(product.price)}</p>
+              <p> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(product.price)}</p>
 
               <Button className="mt-2 w-full" onClick={() => handleAddToCart(product, index)}>
                 Add to Cart

@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { uploadImageToCloudinary } from "@/lib/cloudinary"; // Adjust path
+import { toast } from "sonner"; // Optional toast
 import { useUser } from "@clerk/nextjs"; // Import Clerk
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -10,7 +15,6 @@ import useModalStore from "@/store/useModalStore";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PriceInput } from "@/components/molecules/price-input";
 import { useCreateProduct } from "@/features/marketplace/products/api/use-create-product";
-import ImageUploader from "@/components/molecules/imageUploader";
 
 // model Product {
 //   id          String    @id @default(cuid())
@@ -34,19 +38,16 @@ const formSchema = z.object({
   price: z.number().min(0, "Price must be a positive number"),
   categoryId: z.string().min(1, "Category is required"),
   sellerId: z.string().min(1, "Seller ID is required"),
-  Image: z
-    .any()
-    .refine((file) => file?.length === 1, "File harus diunggah")
-    .refine(
-      (file) => file?.[0]?.size <= 2 * 1024 * 1024, // Maksimal 2MB
-      "Ukuran file maksimal 2MB"
-    )
-    .refine((file) => ["image/jpeg", "image/png"].includes(file?.[0]?.type), "Format file harus JPG atau PNG"),
+  imageUrl: z.string().url("Invalid URL"),
 });
 
 export default function CreateProductModal() {
   const { isOpen, closeModal } = useModalStore();
   const { user } = useUser(); // Ambil user dari Clerk
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [imageUrl, setImageUrl] = useState(""); // State to store the uploaded image URL
+
   const sellerId = user?.id || ""; // Ambil ID user Clerk sebagai sellerId
 
   const createProductMutation = useCreateProduct(); // Call the hook to get the mutation object
@@ -59,6 +60,7 @@ export default function CreateProductModal() {
       price: 0,
       categoryId: "",
       sellerId: sellerId, // Set default sellerId dari Clerk
+      imageUrl: "", // Set default image to null
     },
   });
 
@@ -69,22 +71,34 @@ export default function CreateProductModal() {
   }
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    createProductMutation({
+    createProductMutation.mutate({
       name: data.name,
       description: data.description,
       price: data.price,
       categoryId: data.categoryId,
-      sellerId, // Pakai sellerId dari Clerk
-      Image: data.ImageUrl, // File image
-    })
-      .then(() => {
-        closeModal();
-        form.reset();
-      })
-      .catch((error: any) => {
-        console.error("Error creating product:", error);
-      });
+      sellerId: user?.id || "", // Provide a fallback value for sellerId
+      imageUrl: imageUrl, // File image
+    });
+    closeModal(); // Close the modal after upload attempt
   }
+
+  const handleUpload = async (onChange: (value: string) => void) => {
+    if (!selectedFile) return;
+
+    setUploading(true);
+    try {
+      const url = await uploadImageToCloudinary(selectedFile);
+      onChange(url); // Store the Cloudinary URL in form
+      console.log(url);
+      setImageUrl(url); // Store the URL in state if needed
+      toast.success("Image uploaded successfully");
+    } catch (error) {
+      console.error("Upload failed", error);
+      toast.error("Image upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={closeModal}>
@@ -153,9 +167,9 @@ export default function CreateProductModal() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectItem value="Coding">Coding</SelectItem>
-                          <SelectItem value="Fix Code">Fixing Code</SelectItem>
-                          <SelectItem value="Nextvul Project">Nextvul Project</SelectItem>
+                          <SelectItem value="1">Coding</SelectItem>
+                          <SelectItem value="2">Fixing Code</SelectItem>
+                          <SelectItem value="3">Nextvul Project</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -166,7 +180,27 @@ export default function CreateProductModal() {
               )}
             />
 
-            <ImageUploader control={form.control} />
+            {/* <ImageUploader /> */}
+
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image</FormLabel>
+                  <FormControl>
+                    <div className="space-y-2">
+                      <Input type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files?.[0] || null)} disabled={uploading} />
+                      <Button type="button" onClick={() => handleUpload(field.onChange)} disabled={!selectedFile || uploading}>
+                        {uploading ? "Uploading..." : "Upload Image"}
+                      </Button>
+                    </div>
+                  </FormControl>
+                  <FormDescription>This is your product image.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <div className="mt-4 space-x-4">
               <Button className="w-full" type="submit" disabled={createProductMutation.status === "pending"}>
