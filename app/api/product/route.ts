@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { uploadImageToCloudinary } from "@/lib/cloudinary"; // Import fungsi upload ke Cloudinary
 
 const prisma = new PrismaClient();
 
@@ -30,6 +29,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 export async function GET() {
   try {
     const product = await prisma.product.findMany();
+
     return new Response(JSON.stringify(product));
   } catch (error) {
     console.error("Error fetching users:", error);

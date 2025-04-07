@@ -2,10 +2,9 @@
 
 import { ChevronUp, HomeIcon, PackageSearch, Settings, ShoppingCart, SquareChartGantt, User2 } from "lucide-react";
 
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarTrigger } from "@/components/ui/sidebar";
+import { Sidebar, SidebarFooter, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import Link from "next/link";
 
 // Menu items.
 const items = [
@@ -35,12 +34,11 @@ const items = [
 export function AppSidebar() {
   return (
     <>
-      <Sidebar variant="floating" collapsible="icon">
+      <Sidebar>
         <SidebarHeader>
           <SidebarGroupLabel>Nextvul</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarTrigger />
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>

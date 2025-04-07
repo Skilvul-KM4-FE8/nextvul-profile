@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { CalendarIcon, Contact2Icon, HomeIcon, LayoutDashboard, MailIcon, Newspaper, PencilIcon, PresentationIcon, Store } from "lucide-react";
+import { CalendarIcon, Contact2Icon, HomeIcon, LayoutDashboard, LogInIcon, MailIcon, Newspaper, PencilIcon, PresentationIcon, Store } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useMotionValue } from "framer-motion";
@@ -11,7 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ModeToggle from "@/components/mode-toggle";
 import { Dock, DockIcon } from "@/components/ui/dock";
-import { UserButton } from "@clerk/nextjs";
+
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -66,8 +67,8 @@ const DATA = {
   },
 };
 
-export function DockDemo() {
-  const mouseX = useMotionValue(0); // Define a single motion value for all DockIcon components
+export async function DockDemo() {
+  const mouseX = await useMotionValue(0); // Define a single motion value for all DockIcon components
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center">
@@ -78,7 +79,7 @@ export function DockDemo() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href={item.href} aria-label={item.label} className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "size-12 rounded-full")}>
-                    <item.icon className="size-4" />
+                    <item.icon className="size-4 " />
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -116,12 +117,17 @@ export function DockDemo() {
           <Separator orientation="vertical" className="h-full py-2" />
           <DockIcon mouseX={mouseX}>
             <Tooltip>
-              <TooltipTrigger asChild>
+              <SignedOut>
+                <Link href="/sign-in">
+                  <Button variant="ghost" size="icon" className="size-12 rounded-full">
+                    <LogInIcon />
+                  </Button>
+                </Link>
+              </SignedOut>
+
+              <SignedIn>
                 <UserButton />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Account</p>
-              </TooltipContent>
+              </SignedIn>
             </Tooltip>
           </DockIcon>
         </Dock>

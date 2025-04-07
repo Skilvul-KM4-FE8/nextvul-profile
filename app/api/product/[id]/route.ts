@@ -3,12 +3,12 @@ import { prisma } from "@/lib/prisma";
 
 // API Route: /api/product/[id]
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const products = await prisma.product.findMany({
       where: {
-        sellerId: id, 
+        sellerId: id,
       },
     });
 

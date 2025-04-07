@@ -5,6 +5,7 @@ import { useGetProductUser } from "@/features/marketplace/products/api/use-get-p
 import CreateProductModal from "@/features/marketplace/products/components/CreateProductModal";
 import useModalStore from "@/store/useModalStore";
 import Image from "next/image";
+
 import Link from "next/link";
 
 export default function ProductList() {
@@ -15,17 +16,20 @@ export default function ProductList() {
   if (isError) return <p>Error fetching products</p>;
 
   return (
-    <div>
-      <h1>User Products</h1>
+    <div className="ml-10">
+      <div>
+        <h1 className="text-2xl font-bold mt-5 ">Product List</h1>
+        <p className="text-gray-500 mb-3 ">Welcome to your product list page</p>
+      </div>
       <Button onClick={openModal}>Create Product</Button>
       <CreateProductModal />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full max-w-6xl mt-4">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full max-w-6xl mt-4">
         {products?.map((product) => (
           <Card key={product.id} className="p-4 flex flex-col gap-2">
             {/* Navigasi hanya di gambar dan nama */}
             <Link href={`/marketplace/${product.id}`}>
               <div className="cursor-pointer">
-                <img src={product.imageUrl} className="m-auto" alt="photo product" />
+                <Image src={product.imageUrl} className="m-auto" alt="photo product" />
                 <h2 className="text-lg font-semibold text-blue-600 hover:underline">{product.name}</h2>
               </div>
             </Link>

@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ url: (result as any).secure_url });
-  } catch (err) {
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error: `${error}` }, { status: 500 });
   }
 }

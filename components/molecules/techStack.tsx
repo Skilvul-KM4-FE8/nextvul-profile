@@ -10,7 +10,7 @@ const firstRow = techStacks.slice(0, techStacks.length / 2);
 
 const TechStackIcon = ({ name }: { name: string }) => {
   return (
-    <div className=" transform scale-50 dark:grayscale hover:dark:grayscale-0 transition-all duration-300">
+    <div className=" transform scale-50 dark:grayscale hover:dark:grayscale-0 transition-all duration-300 ease-in-out hover:scale-75 cursor-pointer">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
@@ -27,7 +27,7 @@ const TechStackIcon = ({ name }: { name: string }) => {
 
 export default function TechStackMarquee() {
   return (
-    <div className="flex h-[100px] w-full flex-col items-center justify-center overflow-hidden bg-slate-700 dark:bg-slate-900">
+    <div className="flex h-[135px] w-full flex-col items-center justify-center overflow-hidden bg-slate-700 dark:bg-slate-900">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((tech) => (
           <TechStackIcon key={tech} name={tech} />

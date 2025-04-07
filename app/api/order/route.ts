@@ -1,7 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { NextApiResponse } from "next";
-import { NextRequest } from "next/server";
-import { currentUser } from "@clerk/nextjs/server";
 
 export async function GET(res: NextApiResponse) {
   try {
