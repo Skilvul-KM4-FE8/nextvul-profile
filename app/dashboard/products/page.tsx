@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card";
 import { useGetProductUser } from "@/features/marketplace/products/api/use-get-product-user";
 import CreateProductModal from "@/features/marketplace/products/components/CreateProductModal";
 import useModalStore from "@/store/useModalStore";
-import Image from "next/image";
 
 import Link from "next/link";
 
@@ -29,7 +28,7 @@ export default function ProductList() {
             {/* Navigasi hanya di gambar dan nama */}
             <Link href={`/marketplace/${product.id}`}>
               <div className="cursor-pointer">
-                <Image src={product.imageUrl} className="m-auto" alt="photo product" />
+                <img src={product.imageUrl} className="m-auto" alt="photo product" />
                 <h2 className="text-lg font-semibold text-blue-600 hover:underline">{product.name}</h2>
               </div>
             </Link>
