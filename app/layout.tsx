@@ -32,19 +32,19 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
-      <Suspense fallback={<Loading />}>
-        <ClerkProvider>
-          <QueryClientProvider client={queryClient}>
-            <body>
-              <SignedIn></SignedIn>
-              <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                <main>{children}</main> <Toaster />
-                <Analytics />
-              </ThemeProvider>
-            </body>
-          </QueryClientProvider>
-        </ClerkProvider>
-      </Suspense>
+      <ClerkProvider>
+        <QueryClientProvider client={queryClient}>
+          <body>
+            <SignedIn></SignedIn>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+              {/* <Suspense fallback={<Loading />}> */}
+              <main>{children}</main> <Toaster />
+              {/* </Suspense> */}
+              <Analytics />
+            </ThemeProvider>
+          </body>
+        </QueryClientProvider>
+      </ClerkProvider>
     </html>
   );
 }

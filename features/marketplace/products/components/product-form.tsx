@@ -17,7 +17,7 @@ const productSchema = z.object({
 
 type Product = z.infer<typeof productSchema>;
 
-async function createProduct(product: Product) {
+export default function createProduct(product: Product) {
   const formData = new FormData();
   formData.append("name", product.name);
   formData.append("description", product.description || "");
@@ -26,16 +26,16 @@ async function createProduct(product: Product) {
   formData.append("categoryId", product.categoryId || "");
   formData.append("image", product.image);
 
-  const response = await fetch("/api/products", {
+  const response = fetch("/api/products", {
     method: "POST",
     body: formData,
   });
 
-  if (!response.ok) {
+  if (!response) {
     throw new Error("Failed to create product");
   }
 
-  return response.json();
+  return response;
 }
 
 export function useCreateProduct() {
