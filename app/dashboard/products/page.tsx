@@ -11,8 +11,8 @@ export default function ProductList() {
   const { openModal } = useModalStore();
   const { data: products, isLoading, isError } = useGetProductUser();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error fetching products</p>;
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error fetching products</div>;
 
   return (
     <div className="ml-10">
@@ -32,8 +32,8 @@ export default function ProductList() {
                 <h2 className="text-lg font-semibold text-blue-600 hover:underline">{product.name}</h2>
               </div>
             </Link>
-            <p>{product.description}</p>
-            <p> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(product.price)}</p>
+            <div>{product.description}</div>
+            <div> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(product.price)}</div>
 
             <Button className="mt-2 w-full">Edit Product</Button>
           </Card>

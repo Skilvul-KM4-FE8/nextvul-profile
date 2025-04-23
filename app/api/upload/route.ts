@@ -9,6 +9,26 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET!,
 });
 
+type ResultType = {
+  public_id: string;
+  version: number;
+  signature: string;
+  width: number;
+  height: number;
+  format: string;
+  resource_type: string;
+  created_at: string;
+  tags: string[];
+  bytes: number;
+  type: string;
+  etag: string;
+  placeholder: boolean;
+  url: string;
+  secure_url: string;
+  original_filename: string;
+
+}
+
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const file = formData.get("file") as File;
@@ -26,7 +46,9 @@ export async function POST(req: NextRequest) {
         .end(buffer);
     });
 
-    return NextResponse.json({ url: (result as any).secure_url });
+    console.log(result);
+
+    return NextResponse.json({ url: (result as ResultType).secure_url });
   } catch (error) {
     return NextResponse.json({ error: `${error}` }, { status: 500 });
   }

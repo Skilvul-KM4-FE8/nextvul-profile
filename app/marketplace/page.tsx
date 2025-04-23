@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { DockDemo } from "@/components/dock-provider";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -14,16 +13,23 @@ import { toast } from "sonner";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/query-client";
 import React from "react";
-import Image from "next/image";
+
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+};
 
 function MarketplaceContent() {
   const { data = [], isLoading } = useGetProducts();
   const { addToCart } = useCartStore();
 
-  const handleAddToCart = (product: any, index: number) => {
-    addToCart({ ...product, id: index, quantity: 1 });
-    toast.success(`${product.name} added to cart`);
-  };
+  const handleAddToCart = (product: Product, index: number) => {
+      addToCart({ ...product, id: index, quantity: 1 });
+      toast.success(`${product.name} added to cart`);
+    };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mt-20 py-10 font-[family-name:var(--font-geist-sans)] p-4">
@@ -37,7 +43,7 @@ function MarketplaceContent() {
         </div>
       </div>
 
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <div>Loading...</div>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full max-w-6xl mt-4">
         {data.map((product, index) => (

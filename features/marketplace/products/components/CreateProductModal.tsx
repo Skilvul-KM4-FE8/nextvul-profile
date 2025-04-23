@@ -81,23 +81,24 @@ export default function CreateProductModal() {
     });
     closeModal(); // Close the modal after upload attempt
   }
-
-  const handleUpload = async (onChange: (value: string) => void) => {
+  const handleUpload = (onChange: (value: string) => void) => {
     if (!selectedFile) return;
 
     setUploading(true);
-    try {
-      const url = await uploadImageToCloudinary(selectedFile);
-      onChange(url); // Store the Cloudinary URL in form
-      console.log(url);
-      setImageUrl(url); // Store the URL in state if needed
-      toast.success("Image uploaded successfully");
-    } catch (error) {
-      console.error("Upload failed", error);
-      toast.error("Image upload failed");
-    } finally {
-      setUploading(false);
-    }
+    uploadImageToCloudinary(selectedFile)
+      .then((url) => {
+        console.log(url);
+        setImageUrl(url); // Store the URL in state if needed
+        onChange(url); // Store the Cloudinary URL in form
+        toast.success("Image uploaded successfully");
+      })
+      .catch((error) => {
+        console.error("Upload failed", error);
+        toast.error("Image upload failed");
+      })
+      .finally(() => {
+        setUploading(false);
+      });
   };
 
   return (
