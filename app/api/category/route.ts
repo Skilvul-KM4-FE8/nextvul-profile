@@ -1,4 +1,4 @@
-import { NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -23,12 +23,12 @@ const prisma = new PrismaClient();
 // }
 
 //get user
-export async function GET(res: NextApiResponse) {
-  try {
-    const users = await prisma.category.findMany();
-    return new Response(JSON.stringify(users));
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-}
+// export async function GET(req: NextRequest) {
+//   try {
+//     const users = await prisma.category.findMany();
+//     return NextResponse.json(users);
+//   } catch (error) {
+//     console.error("Error fetching users:", error);
+//     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+//   }
+// }
