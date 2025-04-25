@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+type params = {
+  id: string;
+};
+
 // GET /api/product/[id]
-export async function GET(
-  request: Request,
-  context: { params: { id: string } }
-) {
+export async function GET(context: { params: params }) {
   const { id } = context.params;
 
   try {
